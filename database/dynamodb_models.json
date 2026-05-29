@@ -1,0 +1,82 @@
+{
+  "database": "Amazon DynamoDB",
+  "table_design": {
+    "TableName": "RobotFleetTelemetry",
+    "BillingMode": "PAY_PER_REQUEST",
+    "PartitionKey": "PK (String) - e.g., ROBOT#<RobotId>",
+    "SortKey": "SK (String) - e.g., TELEMETRY#<Timestamp>"
+  },
+  "data_models": [
+    {
+      "model_type": "Robot_Telemetry_Ping",
+      "partition_key": "ROBOT#BOT-S1-001",
+      "sort_key": "TELEMETRY#2026-05-29T17:30:00Z",
+      "attributes": {
+        "robotId": "BOT-S1-001",
+        "timestamp": "2026-05-29T17:30:00Z",
+        "batteryLevel": 85,
+        "temperatureCelsius": 42.6,
+        "status": "ONLINE",
+        "location": {
+          "latitude": 39.7392,
+          "longitude": -104.9903,
+          "altitudeMeters": 0.5
+        },
+        "movement": {
+          "linearVelocity": 0.45,
+          "angularVelocity": 0.05
+        },
+        "systemLoad": {
+          "cpuUsagePercent": 24.5,
+          "memoryUsagePercent": 56.2
+        },
+        "sensors": {
+          "lidar": "OK",
+          "depthCamera": "OK",
+          "thermalSensor": "OK"
+        }
+      }
+    },
+    {
+      "model_type": "Robot_Incident_Anomaly",
+      "partition_key": "ROBOT#BOT-S1-001",
+      "sort_key": "ANOMALY#2026-05-29T17:31:12Z",
+      "attributes": {
+        "robotId": "BOT-S1-001",
+        "timestamp": "2026-05-29T17:31:12Z",
+        "findingId": "FND-2026-0001",
+        "category": "WIRING_FAULT",
+        "severity": "HIGH",
+        "description": "Exposed terminal connection detected on breaker panel B4.",
+        "imageUri": "s3://forenly-telemetry/findings/fnd-0001.jpg",
+        "modelInference": {
+          "label": "exposed_terminal",
+          "confidence": 0.94,
+          "boundingBox": { "x": 120, "y": 80, "w": 45, "h": 60 }
+        },
+        "hitlRequired": true,
+        "approvalState": "PENDING"
+      }
+    }
+  ],
+  "query_patterns": {
+    "get_latest_robot_telemetry": {
+      "expression": "PK = :pk AND SK BEGINS_WITH(:sk_prefix)",
+      "parameters": {
+        ":pk": "ROBOT#BOT-S1-001",
+        ":sk_prefix": "TELEMETRY#"
+      },
+      "ScanIndexForward": false,
+      "Limit": 1,
+      "description": "Fetches the single most recent telemetry ping from the selected robot."
+    },
+    "get_robot_anomalies": {
+      "expression": "PK = :pk AND SK BEGINS_WITH(:sk_prefix)",
+      "parameters": {
+        ":pk": "ROBOT#BOT-S1-001",
+        ":sk_prefix": "ANOMALY#"
+      },
+      "description": "Fetches all anomalies flagged by a specific robot."
+    }
+  }
+}
