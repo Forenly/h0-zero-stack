@@ -1,6 +1,12 @@
-# H0: Hack the Zero Stack — Vercel v0 + AWS Databases
+# H0: Hack the Zero Stack — Autonomous Robot Fleet Control-Plane
 
 > Entry for the **H0: Hack the Zero Stack** hackathon (AWS + Vercel, managed by Devpost). *"Front-end in minutes. Back-end designed for scale."* Online · deadline **Jun 30, 2026** · **$80,000 cash + $80,000 AWS credits.**
+
+**A B2B SaaS control-plane for autonomous robot fleet operations.** Fleet operators get a real-time dashboard to monitor robot status, review inspection findings, and approve or reject autonomous actions — scaffolded fast with Vercel v0 and backed by AWS databases built for scale.
+
+## Community
+
+Building this in the open — join the team chat on Discord: https://discord.gg/dnP3qARtjH
 
 ## The hackathon
 
@@ -8,14 +14,16 @@ Build a **full-stack application** that could actually go to production: scaffol
 
 ## Track & stack
 
-Four tracks (B2C · B2B · Million-scale global · Open innovation). Our likely fit is **Track 2 — Monetizable B2B app**.
+Four tracks (B2C · B2B · Million-scale global · Open innovation). Our fit is **Track 2 — Monetizable B2B app**.
 
 - **Front end:** Vercel / v0.app (Next.js)
-- **Database:** one of Aurora PostgreSQL / Aurora DSQL / DynamoDB — _TBD, choice drives the data model._
+- **Database:** Aurora PostgreSQL (relational fleet + inspection records) or DynamoDB (high-frequency robot telemetry events) — _TBD, choice drives the data model._
 
 ## What we're building
 
-_TBD — one-paragraph concept once track + database are locked._ A full-stack B2B app on the v0 + AWS stack, built around a deliberate data model and a clean, intentional UX — designed to be genuinely shippable, not just a demo.
+A **robot fleet management SaaS control-plane** targeting operators of autonomous ground robots (inspection, logistics, or last-mile delivery fleets). The dashboard surfaces live robot state (location, battery, task queue), aggregates inspection findings from onboard sensors, and provides a human-in-the-loop action approval flow so operators can authorize or reject high-risk autonomous decisions before they execute.
+
+The Vercel v0 front end lets us ship a polished, responsive operator UI fast. The AWS backend handles the scale requirements of multi-robot telemetry and the relational integrity of fleet configuration, inspection records, and audit logs.
 
 ## Architecture
 
@@ -37,6 +45,6 @@ Full compiled brief — mandatory stack, tracks, submission checklist, prizes, j
 
 ## Status
 
-🚧 Pre-build. No qualifier gate. Forenly already has an AWS account; next: submit the AWS + v0 credits request form, lock the track/database, scaffold in v0. See [`docs/HACKATHON_REQUIREMENTS.md`](./docs/HACKATHON_REQUIREMENTS.md).
+Pre-build. No qualifier gate. Forenly already has an AWS account; next: submit the AWS + v0 credits request form, lock the track/database, scaffold the fleet dashboard in v0. See [`docs/HACKATHON_REQUIREMENTS.md`](./docs/HACKATHON_REQUIREMENTS.md).
 
 — *Forenly · part of the [Cadence](https://github.com/Forenly) multi-hackathon initiative.*
